@@ -27,15 +27,21 @@ class NewsGateway
     }
 
     public function deleteDate($date){
-
+		$query='DELETE TNews Where :date=date';
+		return $this->con->executeQuery($query,array(
+			':date'=>array($date,PDO::PARAM_STR)));
     }
 
     public function deleteCategorie($categorie){
-
+		$query='DELETE TNews Where :cate=categorie';
+		return $this->con->executeQuery($query,array(
+			':cate'=>array($categorie,PDO::PARAM_STR)));
     }
 
     public function deleteTitre($titre){
-
+		$query='DELETE TNews Where :titre=titre';
+		return $this->con->executeQuery($query,array(
+			':titre'=>array($titre,PDO::PARAM_STR)));
     }
     /*
     public function deleteCateDate($categorie,$date){
@@ -44,23 +50,32 @@ class NewsGateway
     */
 
     public function delete($lien){
-
+		$query='DELETE TNews Where :lien=lien';
+		return $this->con->executeQuery($query,array(
+			':lien'=>array($lien,PDO::PARAM_STR)));
     }
 
     public function findAll(){
-
+		$query='SELECT * FROM TNEWS';
+		return $this->con->executeQuery($query);
     }
 
     public function findTitre($titre){
-
+		$query='SELECT * FROM TNews WHERE :titre=titre'
+		return this->con->executeQuery($query, array(
+			':titre'=>array($titre,PDO::PARAM_STR)));
     }
 
     public function findCategorie($categorie){
-
+		$query='SELECT * FROM TNews WHERE :cate=categorie'
+		return this->con->executeQuery($query, array(
+			':cate'=>array($categorie,PDO::PARAM_STR)));
     }
 
     public function findDate($date){
-
+		$query='SELECT * FROM TNews WHERE :date=date'
+		return this->con->executeQuery($query, array(
+			':date'=>array($date,PDO::PARAM_STR)));
     }
 
 
