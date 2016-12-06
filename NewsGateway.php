@@ -10,7 +10,7 @@ class NewsGateway
 {
     private $con;
 
-    public function __construct(Connection $con)
+    public function __construct(Connexion $con)
     {
         $this->con=$con;
     }
@@ -27,19 +27,19 @@ class NewsGateway
     }
 
     public function deleteDate($date){
-		$query='DELETE TNews Where :date=date';
+		$query='DELETE * FROM TNews Where :date=date';
 		return $this->con->executeQuery($query,array(
 			':date'=>array($date,PDO::PARAM_STR)));
     }
 
     public function deleteCategorie($categorie){
-		$query='DELETE TNews Where :cate=categorie';
+		$query='DELETE * FROM TNews Where :cate=categorie';
 		return $this->con->executeQuery($query,array(
 			':cate'=>array($categorie,PDO::PARAM_STR)));
     }
 
     public function deleteTitre($titre){
-		$query='DELETE TNews Where :titre=titre';
+		$query='DELETE * FROM TNews Where :titre=titre';
 		return $this->con->executeQuery($query,array(
 			':titre'=>array($titre,PDO::PARAM_STR)));
     }
@@ -49,33 +49,49 @@ class NewsGateway
     }
     */
 
-    public function delete($lien){
-		$query='DELETE TNews Where :lien=lien';
+    public function deleteLien($lien){
+		$query='DELETE * FROM TNews Where :lien=lien';
 		return $this->con->executeQuery($query,array(
 			':lien'=>array($lien,PDO::PARAM_STR)));
     }
 
     public function findAll(){
 		$query='SELECT * FROM TNEWS';
-		return $this->con->executeQuery($query);
+		$this->con->executeQuery($query);
+		$results=$this->con->getResults();
+        foreach ($results as $r)
+			$Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+		return $Tab_News;
     }
 
     public function findTitre($titre){
 		$query='SELECT * FROM TNews WHERE :titre=titre'
-		return this->con->executeQuery($query, array(
+		this->con->executeQuery($query, array(
 			':titre'=>array($titre,PDO::PARAM_STR)));
+		$results=$this->con->getResults();
+        foreach ($results as $r)
+			$Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+		return $Tab_News;
     }
 
     public function findCategorie($categorie){
 		$query='SELECT * FROM TNews WHERE :cate=categorie'
-		return this->con->executeQuery($query, array(
+		this->con->executeQuery($query, array(
 			':cate'=>array($categorie,PDO::PARAM_STR)));
+		$results=$this->con->getResults();
+        foreach ($results as $r)
+			$Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+		return $Tab_News;
     }
 
     public function findDate($date){
 		$query='SELECT * FROM TNews WHERE :date=date'
-		return this->con->executeQuery($query, array(
+		this->con->executeQuery($query, array(
 			':date'=>array($date,PDO::PARAM_STR)));
+		$results=$this->con->getResults();
+        foreach ($results as $r)
+			$Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+		return $Tab_News;
     }
 
 
