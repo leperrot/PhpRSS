@@ -55,11 +55,11 @@ class NewsGateway
     }
 
     public function findAll(){
-        $query='SELECT * FROM TNEWS';
+        $query='SELECT * FROM TNews';
         $this->con->executeQuery($query);
-        $results=$this->con->getResults();
+        $results[]=$this->con->getResults();
         foreach ($results as $r)
-            $Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+            $Tab_News[]= new News($r['Titre'],$r['Lien'],$r['Date'],$r['Description'],$r['Categorie']);
         return $Tab_News;
     }
 

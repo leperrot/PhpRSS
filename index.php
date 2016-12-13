@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
 
@@ -35,29 +35,32 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+                        RSS
                     </a>
                 </li>
                 <li>
-                    <a href="#">Home</a>
+                    <a href="#">Dernières News</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#">Nouvelles technologies</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#">Informatique</a>
                 </li>
                 <li>
-                    <a href="#">Events</a>
+                    <a href="#">Jeux vidéos</a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="#">Culture</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="#">Science</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Monde</a>
+                </li>
+                <li>
+                    <a href="#">Accès admin</a>
                 </li>
             </ul>
         </div>
@@ -66,21 +69,28 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-lg-12">
                         <h1>Simple Sidebar</h1>
                         <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
                         <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
                     </div>
-                </div>
+                </div>-->
                 <h3>Nouveaux fils</h3>
                 <div class="row">
                   <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
+                    <!--<li class="list-group-item">Cras justo odio</li>
                     <li class="list-group-item">Dapibus ac facilisis in</li>
                     <li class="list-group-item">Morbi leo risus</li>
                     <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    <li class="list-group-item">Vestibulum at eros</li>-->
+                      <?php
+                      require ("Controller/CtrlUser.php");
+                      $data=CtrlUser::afficheNews();
+                      foreach ($data as $news){
+                          echo "<li> <a href='Controller/CtrlUser.php?action=afficheNews&url=".$news->lien."' >".$news->titre."</a> </li>";
+                      }
+                      ?>
                   </ul>
             </div>
         </div>

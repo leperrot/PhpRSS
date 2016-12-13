@@ -5,7 +5,7 @@ class CtrlUser
 {
     function __construct(){
 
-        require_once (__DIR__.'/Modele/ModeleUsr.php');
+        //require_once ('../Modele/ModeleUsr.php');
 
         $dataVueErreur = array();
 
@@ -69,11 +69,13 @@ class CtrlUser
 
     }
 
-    function afficheNews()
+    static function afficheNews()
     {
+        require('../Modele/ModeleUsr.php');
         $model = new ModeleUsr();
-        $data = $model->get_AllNews();
+        return $data[] = $model->get_AllNews();
         //$dataVue=array('data'=>$data);
+        //require("../index.php");
     }
 
 }
