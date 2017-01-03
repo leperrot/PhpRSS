@@ -15,10 +15,11 @@ class CtrlUser
 
             switch ($action)
             {
-
-
                 case NULL:
                     $this->afficheNews();
+                    //testErreur
+                    /*$dataVueErreur[] = 'Probleme appel php';
+                    require('Vue/erreur.php');*/
                     break;
 
 
@@ -29,20 +30,23 @@ class CtrlUser
                 case 'titre':
                     titre();
                     break;
+		
+		case 'connexion':
+		    connexion();
 
                 default:
                     $dataVueErreur[] = 'Probleme appel php';
-                    //require(__DIR__.'/Vue/erreur.php');
+                    require('Vue/erreur.php');
                     break;
 
             }
         }catch
         (PDOException $e){
             $dataVueErreur[] = 'erreur';
-            //require(__DIR__.'/Vue/erreur.php');
+            require('Vue/erreur.php');
         }catch (Exception $e){
             $dataVueErreur[] = 'erreur';
-            //require(__DIR__.'/Vue/erreur.php');
+            require('Vue/erreur.php');
         }
 
         exit(0);
@@ -63,20 +67,22 @@ class CtrlUser
         //$dataVue=array('data'=>$data);
     }
 
-
-    function Reinit()
+    function afficheNews()
     {
-
-    }
-
-    static function afficheNews()
-    {
-        require('../Modele/ModeleUsr.php');
         $model = new ModeleUsr();
-        return $data[] = $model->get_AllNews();
-        //$dataVue=array('data'=>$data);
-        //require("../index.php");
+        $data = $model->get_AllNews();
+        require("Vue/vue.php");
     }
+
+	function connexion(){
+		//Nettoyage validation POST
+		$model = new ModeleAdmin();
+		if($model->connexion($login,$mdp)) require("Vue/vue.php");
+		else {
+			$dataVueErreur[] = 'Pb connexion';
+			require("Vue/erreur.php");
+		}
+	}
 
 }
 ?>

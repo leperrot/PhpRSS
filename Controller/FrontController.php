@@ -8,10 +8,40 @@
  */
 class FrontController
 {
+    private $vueErreur=array();
 
-    //session_start($login,$role);
+    public function __construct(){
+        session_start();
+
+        $actionAdmin=array('deconnexion','ajouter','supprimer');
+
+        try{
+            $a= ModeleAdmin::isAdmin();
+
+            if ($_REQUEST['action'].in_array($actionAdmin)){
+                if($a==NULL){
+                    require ('Vue/adminLog.php');
+                }else{
+                    new CtrlAdmin();
+                }
+            }else{
+                new CtrlUser();
+            }
+        }catch(Exception $exception){
+            require('Vue/erreur.php');
+        }
+
+    }
+
+
+
+
+
+
 
 
 
 
 }
+
+?>

@@ -8,7 +8,7 @@
  */
 
 
-include_once ('../Config/Config.php');
+include_once ('Config/Config.php');
 
 
 class ModeleAdmin
@@ -43,8 +43,32 @@ class ModeleAdmin
         $re=$ng->deleteTitre($titre);
 		}
 
+
     public function connexion($login, $mdp){
-        $ag=new AdminGateway(new Connexion($dsn,$name,$mdp));
-        $re=$ag->Connexion;
+	//nettoyage
+        $ag=new AdminGateway(new Connexion('mysql:host=localhost;dbname=dbbagandoeu','root',''));
+	if($ag->connexion($login,$mdp)){
+		$_SESSION['role']='admin';
+		$_SESSION['login']=$login;
+		return TRUE;
+	}
+	else return FALSE;
+    }
+
+
+
+    public function deconnexion(){
+        session_unset();
+    }
+
+    public static function isAdmin()
+    {
+        if (isset ($_SESSION['login']) && isset ($_SESSION['role'])) {
+            //Nettoyage
+            return new Admin($_SESSION['login'],$_SESSION['role']);
+        }
+        else return NULL;
     }
 }
+
+?>

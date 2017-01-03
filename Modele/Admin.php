@@ -9,11 +9,11 @@
 class Admin
 {
     private $login;
-    private $mdp;
+    private $role;
 
-    public function __construct($log,$psw)
+    public function __construct($log,$role)
     {
-        $login = $log;
-        $mdp = $psw;
+        $this->login = $log;
+        $this->role = $role;
     }
 }

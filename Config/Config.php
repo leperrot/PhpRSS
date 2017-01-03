@@ -13,5 +13,7 @@ $dsn='mysql:host=localhost;dbname=dbbagandoeu';
 $name='root';
 $mdp='';
 
+$rep=__DIR__.'/../';
+
 
 ?>

@@ -6,7 +6,7 @@
      * Time: 15:00
      */
 
-require_once('__DIR__./Modele/ModeleUsr.php');
+require_once('Modele/ModeleUsr.php');
 
 
 class CtrlAdmin
@@ -25,11 +25,11 @@ class CtrlAdmin
 
 
                 case NULL:
-                    Reinit();
+                    //$this->afficheNews();
                     break;
 
                 case 'afficheNews':
-                    afficheNews();
+                    $this->afficheNews();
                     break;
 
                 case 'categorie':
@@ -55,17 +55,17 @@ class CtrlAdmin
 
                 default:
                     $dataVueErreur[] = 'Probleme appel php';
-                    //require(__DIR__.'/Vue/erreur.php');
+                    require('Vue/erreur.php');
                     break;
 
             }
         }catch
         (PDOException $e){
             $dataVueErreur[] = 'erreur';
-            //require(__DIR__.'/Vue/erreur.php');
+            require('Vue/erreur.php');
         }catch (Exception $e){
             $dataVueErreur[] = 'erreur';
-            //require(__DIR__.'/Vue/erreur.php');
+            require('Vue/erreur.php');
         }
         exit(0);
     }
@@ -85,17 +85,11 @@ class CtrlAdmin
         //$dataVue=array('data'=>$data);
     }
 
-
-    function Reinit()
-    {
-
-    }
-
     function afficheNews()
     {
         $model = new ModeleUsr();
         $data = $model->get_AllNews();
-        //$dataVue=array('data'=>$data);
+        require("Vue/vue.php");
     }
 
 }
