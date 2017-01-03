@@ -6,7 +6,7 @@
      * Time: 15:00
      */
 
-require_once('Modele/ModeleUsr.php');
+require_once($rep.'/Modele/ModeleUsr.php');
 
 
 class CtrlAdmin
@@ -23,9 +23,8 @@ class CtrlAdmin
             switch ($action)
             {
 
-
                 case NULL:
-                    //$this->afficheNews();
+                    $this->afficheNews();
                     break;
 
                 case 'afficheNews':
@@ -61,10 +60,10 @@ class CtrlAdmin
             }
         }catch
         (PDOException $e){
-            $dataVueErreur[] = 'erreur';
+            $dataVueErreur[] = 'PDOException';
             require('Vue/erreur.php');
         }catch (Exception $e){
-            $dataVueErreur[] = 'erreur';
+            $dataVueErreur[] = 'Exception';
             require('Vue/erreur.php');
         }
         exit(0);

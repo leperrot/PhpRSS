@@ -16,14 +16,15 @@ class Connexion extends PDO{
 
     public function executeQuery($query,array $param=[]){
         $this->stmt=parent::prepare($query);
+        var_dump($this->stmt);
         foreach ($param as $name=>$value){
             $this->stmt->bindValue($name,$value[0],$value[1]);
+            var_dump($name,$value[0],$value[1]);
+            var_dump($this->stmt->bindValue($name,$value[0],$value[1]));
         }
-        try {
-            return $this->stmt->execute();
-        } catch(Exception $e){
-            throw new Exception();
-        }
+        var_dump($this->stmt);
+        var_dump($this->stmt->execute());
+        return $this->stmt->execute();
     }
 
     public function getResults()

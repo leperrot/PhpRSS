@@ -11,14 +11,13 @@ class FrontController
     private $vueErreur=array();
 
     public function __construct(){
-        session_start();
 
         $actionAdmin=array('deconnexion','ajouter','supprimer');
 
         try{
             $a= ModeleAdmin::isAdmin();
 
-            if ($_REQUEST['action'].in_array($actionAdmin)){
+            if (in_array($_REQUEST['action'],$actionAdmin)){
                 if($a==NULL){
                     require ('Vue/adminLog.php');
                 }else{

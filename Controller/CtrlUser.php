@@ -30,9 +30,14 @@ class CtrlUser
                 case 'titre':
                     titre();
                     break;
-		
-		case 'connexion':
-		    connexion();
+
+                case 'connexion':
+                    $this->connexion();
+                    break;
+
+                case 'admin':
+                    require ('Vue/adminLog.php');
+                    break;
 
                 default:
                     $dataVueErreur[] = 'Probleme appel php';
@@ -42,10 +47,10 @@ class CtrlUser
             }
         }catch
         (PDOException $e){
-            $dataVueErreur[] = 'erreur';
+            $dataVueErreur[] = 'PDOException';
             require('Vue/erreur.php');
         }catch (Exception $e){
-            $dataVueErreur[] = 'erreur';
+            $dataVueErreur[] = 'Exception';
             require('Vue/erreur.php');
         }
 
@@ -74,15 +79,19 @@ class CtrlUser
         require("Vue/vue.php");
     }
 
-	function connexion(){
-		//Nettoyage validation POST
-		$model = new ModeleAdmin();
-		if($model->connexion($login,$mdp)) require("Vue/vue.php");
-		else {
-			$dataVueErreur[] = 'Pb connexion';
-			require("Vue/erreur.php");
-		}
-	}
+
+    function connexion()
+    {
+        //Nettoyage validation POST
+        $login=$_POST['log'];
+        $mdp=$_POST['mdp'];
+        $model = new ModeleAdmin();
+        if($model->connexion($login,$mdp)) require ("index.php");
+        else {
+            $dataVueErreur[] = 'Pb connexion';
+            require("Vue/erreur.php");
+        }
+    }
 
 }
 ?>

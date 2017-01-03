@@ -33,12 +33,12 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
+                <a href="index.php">
                     RSS
                 </a>
             </li>
             <li>
-                <a href="#">Dernières News</a>
+                <a href="index.php">Dernières News</a>
             </li>
             <li>
                 <a href="#">Nouvelles technologies</a>
@@ -59,7 +59,7 @@
                 <a href="#">Monde</a>
             </li>
             <li>
-                <a href="#">Accès admin</a>
+                <a href="index.php?action=admin">Accès admin</a>
             </li>
         </ul>
     </div>
@@ -69,12 +69,12 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <h2>Accès Admin</h2>
-            <form method="post" action=index.php?action=connexion>
+            <form method="post" action="index.php?action=connexion">
                 <label>Login :
-                <input type="text"/>
+                <input type="text" name="log"/>
                 </label>
                 <label>Mot de passe :
-                    <input type="password"/>
+                    <input type="password" name="mdp"/>
                 </label>
                 <button>S'authentifier</button>
             </form>

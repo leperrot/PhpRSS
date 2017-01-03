@@ -33,12 +33,12 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
+                <a href="index.php">
                     RSS
                 </a>
             </li>
             <li>
-                <a href="#">Dernières News</a>
+                <a href="index.php">Dernières News</a>
             </li>
             <li>
                 <a href="#">Nouvelles technologies</a>
@@ -59,7 +59,7 @@
                 <a href="#">Monde</a>
             </li>
             <li>
-                <a href="Vue/adminLog.php">Accès admin</a>
+                <a href="index.php?action=admin">Accès admin</a>
             </li>
         </ul>
     </div>
@@ -74,7 +74,11 @@
                     <?php
                     if(isset($data)) {
                         foreach ($data as $news) {
-                            echo "<li> <a href=". $news->getLien() . " >" . $news->getTitre() . "</a> </li>";
+                            echo "<li>
+                                 <a href=". $news->getLien() . " >" . $news->getTitre() . "</a> 
+                                 <span>".$news->getDescription()."</span>
+                                 <span>".$news->getDate()."</span>
+                                 </li>";
                         }
                     }
                     ?>

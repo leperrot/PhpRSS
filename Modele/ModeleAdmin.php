@@ -43,18 +43,18 @@ class ModeleAdmin
         $re=$ng->deleteTitre($titre);
 		}
 
-
     public function connexion($login, $mdp){
-	//nettoyage
+        //nettoyage
         $ag=new AdminGateway(new Connexion('mysql:host=localhost;dbname=dbbagandoeu','root',''));
-	if($ag->connexion($login,$mdp)){
-		$_SESSION['role']='admin';
-		$_SESSION['login']=$login;
-		return TRUE;
-	}
-	else return FALSE;
+        if($ag->connexion($login,$mdp)){
+            $_SESSION['role']='admin';
+            $_SESSION['login']=$login;
+            var_dump($_SESSION['role']);
+            var_dump($_SESSION['login']);
+            return TRUE;
+        }
+        else return FALSE;
     }
-
 
 
     public function deconnexion(){
@@ -70,5 +70,3 @@ class ModeleAdmin
         else return NULL;
     }
 }
-
-?>
