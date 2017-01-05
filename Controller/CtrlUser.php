@@ -86,7 +86,7 @@ class CtrlUser
         $login=$_POST['log'];
         $mdp=$_POST['mdp'];
         $model = new ModeleAdmin();
-        if($model->connexion($login,$mdp)) require ("index.php");
+        if($model->connexion($login,$mdp)) $this->afficheNews();
         else {
             $dataVueErreur[] = 'Pb connexion';
             require("Vue/erreur.php");

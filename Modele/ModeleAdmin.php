@@ -43,14 +43,13 @@ class ModeleAdmin
         $re=$ng->deleteTitre($titre);
 		}
 
-    public function connexion($login, $mdp){
+    public function connexion($login, $mdpa){
+        global $dsn,$name,$mdp;
         //nettoyage
-        $ag=new AdminGateway(new Connexion('mysql:host=localhost;dbname=dbbagandoeu','root',''));
-        if($ag->connexion($login,$mdp)){
+        $ag=new AdminGateway(new Connexion($dsn,$name,$mdp));
+        if($ag->connexion($login,$mdpa)){
             $_SESSION['role']='admin';
             $_SESSION['login']=$login;
-            var_dump($_SESSION['role']);
-            var_dump($_SESSION['login']);
             return TRUE;
         }
         else return FALSE;

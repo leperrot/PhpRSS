@@ -31,16 +31,6 @@ class FrontController
         }
 
     }
-
-
-
-
-
-
-
-
-
-
 }
 
 ?>

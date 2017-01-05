@@ -84,13 +84,14 @@ class NewsGateway
         return $Tab_News;
     }
 
-    public function findDate($date){
-        $query='SELECT * FROM TNews WHERE :date=date';
+    public function findDate($date)
+    {
+        $query = 'SELECT * FROM TNews WHERE :date=date';
         $this->con->executeQuery($query, array(
-            ':date'=>array($date,PDO::PARAM_STR)));
-        $results=$this->con->getResults();
+            ':date' => array($date, PDO::PARAM_STR)));
+        $results = $this->con->getResults();
         foreach ($results as $r)
-            $Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+            $Tab_News[] = new News($r['titre'], $r['lien'], $r['date'], $r['description'], $r['categorie']);
         return $Tab_News;
     }
 

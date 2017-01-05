@@ -1,7 +1,7 @@
 <?php
 
-require_once (__DIR__.'/Config/Config.php');
-require_once (__DIR__.'/Config/Autoloader.php');
+require_once ('Config/Config.php');
+require_once ('Config/Autoloader.php');
 Autoloader::charger();
 
 session_start();

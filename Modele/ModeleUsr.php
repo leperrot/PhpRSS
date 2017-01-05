@@ -1,12 +1,13 @@
 <?php
 
-//require_once('Config/Config.php');
+require_once('Config/Config.php');
 
 class ModeleUsr{
 
     public function get_AllNews()
     {
-        $ng = new NewsGateway(new Connexion('mysql:host=localhost;dbname=dbbagandoeu','root',''));
+        global $dsn,$name,$mdp;
+        $ng = new NewsGateway(new Connexion($dsn,$name,$mdp));
         return $data=$ng->findAll();
     }
 

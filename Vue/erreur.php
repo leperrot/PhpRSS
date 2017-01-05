@@ -71,8 +71,10 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>
                 <?php
-                foreach ($dataVueErreur as $erreur){
-                    echo $erreur;
+                if(isset($dataVueErreur)){
+                    foreach ($dataVueErreur as $erreur){
+                        echo $erreur;
+                    }
                 }
                 ?>
         </div>

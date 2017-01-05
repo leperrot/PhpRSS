@@ -6,7 +6,7 @@
      * Time: 15:00
      */
 
-require_once($rep.'/Modele/ModeleUsr.php');
+require_once('Modele/ModeleUsr.php');
 
 
 class CtrlAdmin
