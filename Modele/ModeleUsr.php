@@ -11,15 +11,19 @@ class ModeleUsr{
         return $data=$ng->findAll();
     }
 
-    public function getNews_titre($titre){
+    public function getNews_titre($titre)
+    {
+        global $dsn,$name,$mdp;
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-        $Tab_News=$ng->findTitre($titre);
-		}
+        return $data=$ng->findTitre($titre);
+    }
 
-    public function getNews_Categorie($cate){
+    public function getNews_Categorie($cate)
+    {
+        global $dsn,$name,$mdp;
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-        $Tab_News=$ng->findCategorie($cate);
-		}
+        return $data=$ng->findCategorie($cate);
+    }
 
     public function getNews_Date($date){
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));

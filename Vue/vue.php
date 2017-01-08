@@ -41,26 +41,42 @@
                 <a href="index.php">Dernières News</a>
             </li>
             <li>
-                <a href="#">Nouvelles technologies</a>
+                <form method="post" action="index.php?action=titre">
+                    <!--<label>Recherche :
+                        <input type="text" name="log"/>
+                    </label>
+                    <button>Rechercher</button>-->
+                    <div class="input-group">
+                        <input type="text" name="recherche" class="form-control" placeholder="Rechercher...">
+                    </div>
+                </form>
             </li>
             <li>
-                <a href="#">Informatique</a>
+                <a href="index.php?action=categorie&cate=Nouvelles technologies">Nouvelles technologies</a>
             </li>
             <li>
-                <a href="#">Jeux vidéos</a>
+
+                <a href="index.php?action=categorie&cate=Informatique">Informatique</a>
             </li>
             <li>
-                <a href="#">Culture</a>
+                <a href="index.php?action=categorie&cate=Jeux vidéos">Jeux vidéos</a>
             </li>
             <li>
-                <a href="#">Science</a>
+                <a href="index.php?action=categorie&cate=Culture">Culture</a>
             </li>
             <li>
-                <a href="#">Monde</a>
+                <a href="index.php?action=categorie&cate=Science">Science</a>
+            </li>
+            <li>
+                <a href="index.php?action=categorie&cate=Monde">Monde</a>
             </li>
             <li>
                 <a href="index.php?action=admin">Accès admin</a>
             </li>
+            <?php
+            global $adm;
+            if($adm) echo "<li><a href=\"index.php?action=deconnexion\">Déconnexion</a></li>";
+            ?>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -69,6 +85,15 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <h3>Nouveaux fils</h3>
+            <?php
+            global $adm;
+            if($adm){
+            echo "<form method=\"post\" action=\"index.php?action=Vajout\">
+                  <span><a href=\"index.php?action=Vajout\"><button type=\"button\" class=\"btn btn-default\" aria-label=\"Left Align\">
+                  <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>
+                  </button></a></span></form>";
+            }
+            ?>
             <div class="row">
                 <ul class="list-group">
                     <?php
@@ -77,6 +102,7 @@
                             echo "<li>
                                  <a href=". $news->getLien() . " >" . $news->getTitre() . "</a> 
                                  <span>".$news->getDescription()."</span>
+                                 <span>".$news->getCategorie()."</span>
                                  <span>".$news->getDate()."</span>
                                  </li>";
                         }

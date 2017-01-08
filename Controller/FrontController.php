@@ -9,10 +9,11 @@
 class FrontController
 {
     private $vueErreur=array();
+    private $adm;
 
     public function __construct(){
 
-        $actionAdmin=array('deconnexion','ajouter','supprimer');
+        $actionAdmin=array('deconnexion','ajouter','supprimer','Vajout');
 
         try{
             $a= ModeleAdmin::isAdmin();

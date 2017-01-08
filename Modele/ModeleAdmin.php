@@ -14,9 +14,13 @@ include_once ('Config/Config.php');
 class ModeleAdmin
 {
 
-    public function insert_News($lien,$titre,$date,$description,$categorie){
+    public function insert_News($lien,$titre,$date,$description,$categorie)
+    {
+        global $dsn,$name,$mdp;
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-        $Tab_News=$ng->insert($lien,$titre,$date,$description,$categorie);
+        $ng->insert($lien,$titre,$date,$description,$categorie);
+        if($ng!=null) return $data='Insertion réussi';
+        return $data='Insertion échouée';
     }
 
     public function delete_date($date){
@@ -56,7 +60,7 @@ class ModeleAdmin
     }
 
 
-    public function deconnexion(){
+    public static function deconnexion(){
         session_unset();
     }
 

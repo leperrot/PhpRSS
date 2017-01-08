@@ -5,8 +5,6 @@ class CtrlUser
 {
     function __construct(){
 
-        //require_once ('../Modele/ModeleUsr.php');
-
         $dataVueErreur = array();
 
         try
@@ -15,20 +13,18 @@ class CtrlUser
 
             switch ($action)
             {
-                case NULL:
+                case null:
                     $this->afficheNews();
-                    //testErreur
-                    /*$dataVueErreur[] = 'Probleme appel php';
-                    require('Vue/erreur.php');*/
                     break;
 
 
                 case 'categorie':
-                    categorie($_REQUEST['Catego']);
+                    $this->categorie();
                     break;
 
+
                 case 'titre':
-                    titre();
+                    $this->titre();
                     break;
 
                 case 'connexion':
@@ -58,18 +54,31 @@ class CtrlUser
 
     }
 
-    function categorie($cate)
+    function categorie()
     {
+        //nettoyage
+        $cate=$_GET['cate'];
         $model = new ModeleUsr();
         $data = $model->getNews_categorie($cate);
-        //$dataVue=array('data'=>$data);
+        if(isset($data)&&$data!=null) require ("Vue/vue.php");
+        else {
+            $dataVueErreur[] = 'Pas de news de cette catégorie';
+            require("Vue/erreur.php");
+        }
     }
 
-    function titre($titre)
+    function titre()
     {
+        //nettoyage
+        $rech=$_POST['recherche'];
+        //$rech='%'.$rech.'%';
         $model = new ModeleUsr();
-        $data = $model->getNews_titre($titre);
-        //$dataVue=array('data'=>$data);
+        $data = $model->getNews_titre($rech);
+        if(isset($data)&&$data!=null) require ("Vue/vue.php");
+        else {
+            $dataVueErreur[] = 'Pas de news de ce nom';
+            require("Vue/erreur.php");
+        }
     }
 
     function afficheNews()
@@ -82,11 +91,16 @@ class CtrlUser
 
     function connexion()
     {
+        global $adm;
         //Nettoyage validation POST
         $login=$_POST['log'];
         $mdp=$_POST['mdp'];
         $model = new ModeleAdmin();
-        if($model->connexion($login,$mdp)) $this->afficheNews();
+        if($model->connexion($login,$mdp))
+        {
+            $adm=true;
+            $this->afficheNews();
+        }
         else {
             $dataVueErreur[] = 'Pb connexion';
             require("Vue/erreur.php");

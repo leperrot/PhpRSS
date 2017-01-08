@@ -55,7 +55,7 @@ class NewsGateway
     }
 
     public function findAll(){
-        $query='SELECT * FROM TNews';
+        $query='SELECT * FROM TNews ORDER BY Date DESC';
         $this->con->executeQuery($query);
         $results=$this->con->getResults();
         foreach ($results as $r){
@@ -65,33 +65,33 @@ class NewsGateway
     }
 
     public function findTitre($titre){
-        $query='SELECT * FROM TNews WHERE :titre=titre';
+        $query='SELECT * FROM TNews WHERE :titre=titre ORDER BY Date DESC';
         $this->con->executeQuery($query, array(
             ':titre'=>array($titre,PDO::PARAM_STR)));
         $results=$this->con->getResults();
         foreach ($results as $r)
-            $Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+            $Tab_News[] = new News($r['Lien'], $r['Titre'], $r['Date'], $r['Description'], $r['Categorie']);
         return $Tab_News;
     }
 
     public function findCategorie($categorie){
-        $query='SELECT * FROM TNews WHERE :cate=categorie';
+        $query='SELECT * FROM TNews WHERE :cate=categorie ORDER BY Date DESC';
         $this->con->executeQuery($query, array(
             ':cate'=>array($categorie,PDO::PARAM_STR)));
         $results=$this->con->getResults();
         foreach ($results as $r)
-            $Tab_News[]=new News($r['titre'],$r['lien'],$r['date'],$r['description'],$r['categorie']);
+            $Tab_News[] = new News($r['Lien'], $r['Titre'], $r['Date'], $r['Description'], $r['Categorie']);
         return $Tab_News;
     }
 
     public function findDate($date)
     {
-        $query = 'SELECT * FROM TNews WHERE :date=date';
+        $query = 'SELECT * FROM TNews WHERE :d=date ORDER BY Date DESC';
         $this->con->executeQuery($query, array(
-            ':date' => array($date, PDO::PARAM_STR)));
+            ':d' => array($date, PDO::PARAM_STR)));
         $results = $this->con->getResults();
         foreach ($results as $r)
-            $Tab_News[] = new News($r['titre'], $r['lien'], $r['date'], $r['description'], $r['categorie']);
+            $Tab_News[] = new News($r['Lien'], $r['Titre'], $r['Date'], $r['Description'], $r['Categorie']);
         return $Tab_News;
     }
 

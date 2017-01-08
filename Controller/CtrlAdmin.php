@@ -6,9 +6,6 @@
      * Time: 15:00
      */
 
-require_once('Modele/ModeleUsr.php');
-
-
 class CtrlAdmin
 {
     function __construct()
@@ -23,24 +20,16 @@ class CtrlAdmin
             switch ($action)
             {
 
-                case NULL:
+                case null:
                     $this->afficheNews();
                     break;
 
-                case 'afficheNews':
-                    $this->afficheNews();
-                    break;
-
-                case 'categorie':
-                    categorie();
-                    break;
-
-                case 'titre':
-                    titre();
+                case 'Vajout':
+                    require ('Vue/formAjout.php');
                     break;
 
                 case 'ajouter':
-                    //ajouter();
+                    $this->ajouter();
                     break;
 
                 case 'supprimer':
@@ -48,7 +37,7 @@ class CtrlAdmin
                     break;
 
                 case 'deconnexion':
-                    //deconnexion()
+                    $this->deconnexion();
                     break;
 
 
@@ -68,27 +57,31 @@ class CtrlAdmin
         }
         exit(0);
     }
-    function categorie()
-    {
-        $cate=$_POST['catego'];
-        $model = new ModeleUsr();
-        $data = $model->getNews_categorie($cate);
-        //$dataVue=array('data'=>$data);
-    }
-
-    function titre()
-    {
-        $titre=$_POST['titre'];
-        $model = new ModeleUsr();
-        $data = $model->getNews_titre($titre);
-        //$dataVue=array('data'=>$data);
-    }
 
     function afficheNews()
     {
         $model = new ModeleUsr();
         $data = $model->get_AllNews();
         require("Vue/vue.php");
+    }
+
+    function ajouter()
+    {
+        //nettoyage
+        $lien=$_POST['lien'];
+        $titre=$_POST['titre'];
+        $date=$_POST['date'];
+        $desc=$_POST['desc'];
+        $cate=$_POST['cate'];
+        $model = new ModeleAdmin();
+        $dataVueErreur[] = $model->insert_News($lien,$titre,$date,$desc,$cate);
+        require("Vue/erreur.php");
+    }
+
+    function deconnexion()
+    {
+        ModeleAdmin::deconnexion();
+        require ("index.php");
     }
 
 }
