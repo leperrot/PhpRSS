@@ -42,9 +42,9 @@ class XmlParserExample1 {
         }
          
         $this -> result = ob_get_contents();
-        ob_end_clean();
-        fclose($fp);
-        xml_parser_free($xml_parser);
+        ob_end_clean(); // Détruit les données du tampon de sortie et éteint la temporisation de sortie
+        fclose($fichier); //ferme fichier xml
+        xml_parser_free($parser); // Detruit analyseur XML
     }
      
     private function startElement($parser, $name, $attrs)
@@ -76,9 +76,9 @@ class XmlParserExample1 {
 
     }
      
-    private function characterData($parser, $data)
+    private function characterData($parser, $data) // appelé a la fin de chaque lecture
     {
-        $data = trim($data);
+        $data = trim($data); // supprime les espaces en début et fin de chaines
          
         if (strlen($data) > 0)
         {

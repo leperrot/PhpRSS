@@ -7,9 +7,10 @@ include_once ('NewsGateway.php');
 class ParserXml{
 
 	private $path,$n,$title,$link,$cate,$desc,$date,$item,$res;
-	
+
 	public function __construct($path){
 		$this->path=$path;
+		//echo('parser creé <br/>');
 	}
 
     public function getResult() {
@@ -17,8 +18,9 @@ class ParserXml{
     }
 
 	public function parser(){
-		ob_start();
-
+	    //echo("parse appelé");
+		//ob_start();
+        //echo ("parse");
 		$parser = xml_parser_create();
 
 		xml_set_object($parser, $this); // configure objet comme annalyseur XML
@@ -27,13 +29,13 @@ class ParserXml{
 
 		xml_set_character_data_handler($parser, 'characterData'); // Affecte les gestionnaires de texte littéral
 
-		if (!($fichier = fopen($this -> path, "r"))) { //Ouverture fichier xml
+		if (!($fi = fopen($this -> path, "r"))) { //Ouverture fichier xml
             die("Pb ouverture fichier xml"); // equivalent à un exit
         }
 
-         while ($data = fread($fichier, 4096)) //4096 = nb octet max à lire
+         while ($data = fread($fi, 4096)) //4096 = nb octet max à lire
          {
-            if (!xml_parse($parser, $data, feof($fichier)))//debut lecture fichier
+            if (!xml_parse($parser, $data, feof($fi)))//debut lecture fichier
             {
                 die(sprintf("XML error: %s at line %d",
                             xml_error_string(xml_get_error_code($parser)),
@@ -42,90 +44,49 @@ class ParserXml{
         }
 
         $this -> res = ob_get_contents();
-/*
-        ob_end_clean();
 
-        fclose($fichier);
+        //ob_end_clean();
+
+        fclose($fi);
 
         xml_parser_free($parser);
-*/
 	}
 	
 	
 	private function startNews($parser, $name, $attrs){
 
-		/*switch($name){
-			case 'item':
-                echo('startNews '.$name."\r\n");
-				$this->n=new News(null,null,null,null,null);
-				$this->item=true;
-				break;
-			
-			case 'title':
-                echo('startNews '.$name."\r\n");
-				$this->title =true;
-				break;
-				
-			case 'url' :
-                echo('startNews '.$name."\r\n");
-				$this->url = true;
-				break;
-				
-			case 'link' :
-                echo('startNews '.$name."\r\n");
-				$this->url= true;
-				break;
-			
-			case 'catégorie':
-                echo('startNews '.$name."\r\n");
-				$this->cate=true;
-				break;
-			
-			case 'category':
-                echo('startNews '.$name."\r\n");
-				$this->cate=true;
-				break;
-				
-			case 'description':
-                echo('startNews '.$name."\r\n");
-				$this->desc=true;
-				break;
-			
-			case 'date':
-                echo('startNews '.$name."\r\n");
-				$this->date=true;
-				break;
-		
-		}*/
-		if(strcmp($name,'item'))
+
+		if(strcmp($name,'ITEM')==0)
 		{
-            echo('startNews '.$name.'<br/>'."\n");
+            //echo('balise item '.$name.'<br/>'."\n");
+            $this->n = new News();
             $this->item=true;
 		}
-        if(strcmp($name,'title'))
+        if(strcmp($name,'TITLE')==0)
         {
-            echo('startNews '.$name.'<br/>'."\n");
+
+            //echo('balise titre '.$name.'<br/>'."\n");
             $this->title=true;
         }
-        if(strcmp($name,'link'))
+        if(strcmp($name,'LINK')==0)
         {
-            echo('startNews '.$name.'<br/>'."\n");
-            $this->item=true;
+            //echo('balise link '.$name.'<br/>'."\n");
+            $this->link=true;
         }
-        if(strcmp($name,'description'))
+        if(strcmp($name,'DESCRIPTION')==0)
         {
-            echo('startNews '.$name.'<br/>'."\n");
-            $this->item=true;
+            //echo('balise descr '.$name.'<br/>'."\n");
+            $this->desc=true;
         }
-        if(strcmp($name,'category'))
+        if(strcmp($name,'CATEGORY')==0)
         {
-            echo('startNews '.$name.'<br/>'."\n");
-            $this->item=true;
+            //echo('balise cate '.$name.'<br/>'."\n");
+            $this->cate=true;
         }
-        if(strcmp($name,'date'))
+        if(strcmp($name,'DATE')==0 || strcmp($name,'PUBDATE')==0)
         {
-            echo('startNews '.$name.'<br/>'."\n");
-            $this->item=true;
+            //echo('balise date '.$name.'<br/>'."\n");
+            $this->date=true;
         }
 
 
@@ -133,85 +94,41 @@ class ParserXml{
 	
 	private function endNews($parser, $name){
 
-		 /*switch($name){
-			case 'item':
-                echo('endNews '.$name."\r\n");
-				if(!ParseModel::newsExist(($this->n->getLien()))){
-					insert($this->n->getLien(),$this->n->getTitre(),$this->n->getDate(),$this->n->getDescription(),$this->n->getCategorie());
-				}
-				
-				$this->item=false;
-				break;
-			
-			case 'title':
-                echo('endNews '.$name."\r\n");
-				$this->title =false;
-				break;
-				
-			case 'url' :
-                echo('endNews '.$name."\r\n");
-				$this->url = false;
-				break;
-				
-			case 'link' :
-                echo('endNews '.$name."\r\n");
-				$this->url= false;
-				break;
-			
-			case 'categorie':
-                echo('endNews '.$name."\r\n");
-				$this->cate=false;
-				break;
-			
-			case 'category':
-                echo('endNews '.$name."\r\n");
-				$this->cate=false;
-				break;
-				
-			case 'description':
-                echo('endNews '.$name."\r\n");
-				$this->desc=false;
-				break;
-			
-			case 'date':
-                echo('endNews '.$name."\r\n");
-				$this->date=false;
-				break;
-			}*/
 
-        if(strcmp($name,'item'))
+        if(strcmp($name,'ITEM')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
-            if(!ParseModel::newsExist(($this->n->getLien()))){
-            	echo("insert");
-                insert($this->n->getLien(),$this->n->getTitre(),$this->n->getDate(),$this->n->getDescription(),$this->n->getCategorie());
-            }
+            //$this->n->ToString();
+            /*if(!ParseModel::newsExist(($this->n->getLien()))) {
+                echo("insert");
+                insert($this->n->getLien(), $this->n->getTitre(), $this->n->getDate(), $this->n->getDescription(), $this->n->getCategorie());
+            }*/
+
 
             $this->item=false;
         }
-        if(strcmp($name,'title'))
+        if(strcmp($name,'TITLE')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
+            //echo('fin balise title '.$name.'<br/>'."\n");
             $this->title =false;
         }
-        if(strcmp($name,'link'))
+        if(strcmp($name,'LINK')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
+            //echo('fin balise link'.$name.'<br/>'."\n");
             $this->link =false;
         }
-        if(strcmp($name,'description'))
+        if(strcmp($name,'DESCRIPTION')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
+            //echo('fin balise desc'.$name.'<br/>'."\n");
             $this->desc =false;
         }
-        if(strcmp($name,'category'))
+        if(strcmp($name,'CATEGORY')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
+            //echo('fin balise category '.$name.'<br/>'."\n");
             $this->cate =false;
         }
-        if(strcmp($name,'date'))
+        if(strcmp($name,'DATE')==0)
         {
-            echo('endNews '.$name.'<br/>'."\n");
+            //echo('fin balise date'.$name.'<br/>'."\n");
             $this->date =false;
         }
 		 
@@ -221,29 +138,25 @@ class ParserXml{
 
 		$data = trim($data); // supprime les espaces en début et fin de chaines
 
-        if (strlen($data) > 0){
-        	if($this->item){
-                $this->n = new News();
-                echo('Ne'.'<br/>'."\n");
-            }
+        if (strlen($data) > 0 && $this->item==true){
 			if($this->title){
-                echo('Data '.$data.'<br/>'."\n");
+                //echo('titre = '.$data.'<br/>'."\n");
 				$this->n->setTitre($data);
-			}
+            }
 			if($this->date){
-                echo('Data '.$data.'<br/>'."\n");
+                //echo('Date = '.$data.'<br/>'."\n");
 				$this->n->setDate($data);
-			}
+            }
 			if($this->cate){
-                echo('Data '.$data.'<br/>'."\n");
+                //echo('cate = '.$data.'<br/>'."\n");
 				$this->n->setCategorie($data);
-			}
+            }
 			if($this->desc){
-                echo('Data '.$data.'<br/>'."\n");
+                //echo('desc = '.$data.'<br/>'."\n");
 				$this->n->setDescription($data);
-			}
+            }
 			if($this->link){
-                echo('Data '.$data.'<br/>'."\n");
+                //echo('lien = '.$data.'<br/>'."\n");
 				$this->n->setLien($data);
 			}
 			 

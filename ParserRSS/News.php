@@ -103,4 +103,8 @@ class News
         $this->titre = $titre;
     }
 
+    public function ToString(){
+        echo($this->categorie.' '.$this->titre.' '.$this->date.' '.$this->description.' '.$this->lien);
+    }
+
 }
