@@ -104,7 +104,7 @@ class News
     }
 
     public function ToString(){
-        echo($this->categorie.' '.$this->titre.' '.$this->date.' '.$this->description.' '.$this->lien);
+        echo($this->categorie.' '.$this->titre.' '.$this->date.' '.$this->description.' '.$this->lien.'<br/>');
     }
 
 }

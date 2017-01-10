@@ -19,8 +19,6 @@ class Connexion extends PDO{
         foreach ($param as $name=>$value){
             $this->stmt->bindValue($name,$value[0],$value[1]);
         }
-        //var_dump($this->stmt);
-        //var_dump($this->stmt->execute());
         return $this->stmt->execute();
     }
 

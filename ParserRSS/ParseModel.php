@@ -13,25 +13,30 @@ include_once ('Connexion.php');
 
 class ParseModel
 {
+    private $ng;
 
-    public static function getFlux(){
-        global $dsn,$name,$mdp;
-        $ng = new NewsGateway(new Connexion($dsn,$name,$mdp));
-        return $data=$ng->findFlux();
-    }
-
-    public static function newsExist($url){
-        global $dsn,$name,$mdp;
-        $ng = new NewsGateway(new Connexion($dsn,$name,$mdp));
-        return $data=$ng->exist($url);
-    }
-
-    public static function insert_News($lien,$titre,$date,$description,$categorie)
+    public function __construct()
     {
         global $dsn,$name,$mdp;
-        $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-        $data=$ng->insert($lien,$titre,$date,$description,$categorie);
-        if($data!=null) echo'Insertion réussi';
+        $this->ng = new NewsGateway(new Connexion($dsn, $name, $mdp));
+    }
+
+    public function getFlux(){
+
+        return $data=$this->ng->findFlux();
+    }
+
+    public function newsExist($url){
+        return $data=$this->ng->exist($url);
+    }
+
+    public function insert_News($lien,$titre,$date,$description,$categorie)
+    {
+        if(strlen($description)>250){
+            $description=mb_strimwidth($description, 0, 100, "...");
+        }
+        $data = $this->ng->insert($lien, $titre, $date, $description, $categorie);
+        if($data!=null) echo'Insertion réussi <br/>';
         else echo'Insertion échouée';
     }
 

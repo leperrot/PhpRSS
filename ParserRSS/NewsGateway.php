@@ -19,6 +19,7 @@ class NewsGateway
 
     public function insert($lien,$titre,$date,$description,$categorie){
         $query='INSERT INTO TNews VALUES(:lien,:titre,:d,:des,:categorie)';
+
         return $this->con->executeQuery($query,array(
             ':lien'=>array($lien,PDO::PARAM_STR),
             ':titre'=>array($titre,PDO::PARAM_STR),
@@ -39,7 +40,7 @@ class NewsGateway
     }
 
     public function findFlux(){
-        $query='SELECT * FROM TRSS';
+        $query='SELECT * FROM tflux';
         $this->con->executeQuery($query);
         return $results=$this->con->getResults();
         /*foreach ($results as $r){

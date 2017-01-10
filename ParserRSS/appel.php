@@ -4,17 +4,18 @@
 include ('Autoloader.php');
 include ('ParserXml.php');
 
-/*$data[]=ParseModel::getFlux();
+$pm=new ParseModel();
+$data=$pm->getFlux();
 foreach ($data as $flux){
-    $f=new Flux($flux[0]['lienFlux']);
-    var_dump($f);
-    $parser = new ParserXml($f->getLien());
+    //var_dump($flux['Lien']);
+    $f=new Flux($flux['Lien']);
+    $parser = new ParserXml($f->getLien(),$pm);
     $parser ->parser();
 }
-*/
-$parser = new ParserXML(dirname(__FILE__).'/rss.xml');
+/*
+$parser = new ParserXML('http://www.laprovence.com/rss/elections-municipales.xml');
 $parser ->parser();
-
+*/
 ?>
 </body>
 </html>

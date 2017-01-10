@@ -6,10 +6,11 @@ include_once ('NewsGateway.php');
 
 class ParserXml{
 
-	private $path,$n,$title,$link,$cate,$desc,$date,$item,$res;
+	private $path,$n,$title,$link,$cate,$desc,$date,$item,$res,$pmodel;
 
-	public function __construct($path){
+	public function __construct($path,$pmo){
 		$this->path=$path;
+		$this->pmodel=$pmo;
 		//echo('parser creé <br/>');
 	}
 
@@ -100,11 +101,11 @@ class ParserXml{
             //$this->n->ToString();
             //if(ParseModel::newsExist(($this->n->getLien()))) {
                 //echo("insert");
-                echo('bla');
             try {
-                ParseModel::insert_News($this->n->getLien(), $this->n->getTitre(), $this->n->getDate(), $this->n->getDescription(), $this->n->getCategorie());
+
+                $this->pmodel->insert_News($this->n->getLien(), $this->n->getTitre(), $this->n->getDate(), $this->n->getDescription(), $this->n->getCategorie());
             }catch (Exception $e){
-                echo'news existe deja';
+                echo 'news existe deja <br/>';
             }
 
 
@@ -160,7 +161,7 @@ class ParserXml{
 				$this->n->setDescription($data);
             }
 			if($this->link){
-                echo('lien = '.$data.'<br/>'."\n");
+                //echo('lien = '.$data.'<br/>'."\n");
 				$this->n->setLien($data);
 			}
 			 
