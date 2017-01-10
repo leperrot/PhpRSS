@@ -9,8 +9,8 @@
 class Connexion extends PDO{
     private $stmt;
 
-    public function __construct($dsn,$user,$psw){
-        parent::__construct($dsn,$user,$psw);
+    public function __construct($dsn, $username, $passwd){
+        parent::__construct($dsn, $username, $passwd);
         $this->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }
 
@@ -19,6 +19,8 @@ class Connexion extends PDO{
         foreach ($param as $name=>$value){
             $this->stmt->bindValue($name,$value[0],$value[1]);
         }
+        //var_dump($this->stmt);
+        //var_dump($this->stmt->execute());
         return $this->stmt->execute();
     }
 

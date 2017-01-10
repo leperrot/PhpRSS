@@ -85,6 +85,7 @@ class CtrlUser
     {
         $model = new ModeleUsr();
         $data = $model->get_AllNews();
+        $total = $model->countNews();
         require("Vue/vue.php");
     }
 

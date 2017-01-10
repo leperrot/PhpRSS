@@ -25,10 +25,12 @@ class ModeleUsr{
         return $data=$ng->findCategorie($cate);
     }
 
-    public function getNews_Date($date){
-        $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-        $Tab_News=$ng->findDate($date);
-		}
+    public function countNews()
+    {
+        global $dsn,$name,$mdp;
+        $ng = new NewsGateway(new Connexion($dsn,$name,$mdp));
+        return $data=$ng->count();
+    }
 }
 
 ?>

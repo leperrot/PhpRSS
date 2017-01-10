@@ -9,7 +9,6 @@
 class FrontController
 {
     private $vueErreur=array();
-    private $adm;
 
     public function __construct(){
 

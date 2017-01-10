@@ -16,14 +16,22 @@ class NewsGateway
     }
 
     public function insert($lien,$titre,$date,$description,$categorie){
-        $query='INSERT INTO TNews VALUES(:titre,:lien,:d,:des,:categorie)';
+        $query='INSERT INTO TNews VALUES(:lien,:titre,:d,:des,:categorie)';
         return $this->con->executeQuery($query,array(
-            ':titre'=>array($titre,PDO::PARAM_STR),
             ':lien'=>array($lien,PDO::PARAM_STR),
+            ':titre'=>array($titre,PDO::PARAM_STR),
             ':d'=>array($date,PDO::PARAM_STR),
             ':des'=>array($description,PDO::PARAM_STR),
             ':categorie'=>array($categorie,PDO::PARAM_STR)));
     }
+
+    public function insertFlux($lien)
+    {
+        $query='INSERT INTO tflux VALUES(:lien)';
+        return $this->con->executeQuery($query,array(
+            ':lien'=>array($lien,PDO::PARAM_STR)));
+    }
+
 
     public function deleteDate($date){
         $query='DELETE * FROM TNews Where :date=date';
@@ -49,13 +57,21 @@ class NewsGateway
     */
 
     public function deleteLien($lien){
-        $query='DELETE * FROM TNews Where :lien=lien';
+        $query='DELETE FROM TNews Where :li=lien';
         return $this->con->executeQuery($query,array(
-            ':lien'=>array($lien,PDO::PARAM_STR)));
+            ':li'=>array($lien,PDO::PARAM_STR)));
+    }
+
+    public function count(){
+        $query='SELECT COUNT(*) FROM TNews';
+        $this->con->executeQuery($query);
+        return $this->con->getResults();
     }
 
     public function findAll(){
-        $query='SELECT * FROM TNews ORDER BY Date DESC';
+        global $pageA,$newsParPage;
+        $premiereEntree=($pageA-1)*$newsParPage;
+        $query='SELECT * FROM TNews ORDER BY Date DESC LIMIT '.$premiereEntree.','.$newsParPage.'';
         $this->con->executeQuery($query);
         $results=$this->con->getResults();
         foreach ($results as $r){

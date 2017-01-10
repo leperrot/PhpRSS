@@ -32,8 +32,12 @@ class CtrlAdmin
                     $this->ajouter();
                     break;
 
+                case 'ajouterF':
+                    $this->ajouterF();
+                    break;
+
                 case 'supprimer':
-                    //supprimer();
+                    $this->supprimer();
                     break;
 
                 case 'deconnexion':
@@ -78,10 +82,26 @@ class CtrlAdmin
         require("Vue/erreur.php");
     }
 
+    function ajouterF(){
+        //nettoyage
+        $lien=$_POST['lien'];
+        $model = new ModeleAdmin();
+        $dataVueErreur[] = $model->ajouterFlux($lien);
+        require("Vue/erreur.php");
+    }
+
     function deconnexion()
     {
         ModeleAdmin::deconnexion();
         require ("index.php");
+    }
+
+    function supprimer(){
+        //nettoyage
+        $lien=$_GET['lien'];
+        $model = new ModeleAdmin();
+        $dataVueErreur[] = $model->delete_lien($lien);
+        require ("Vue/erreur.php");
     }
 
 }

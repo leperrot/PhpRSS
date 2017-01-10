@@ -6,12 +6,12 @@
  * Time: 15:09
  */
 
-/*$dsn='mysql:host=hina;dbname=dbbagandboeu';
+$dsn='mysql:host=hina;dbname=dbbagandboeu';
 $name='bagandboeu';
-$mdp='1996B13g';*/
-$dsn='mysql:host=localhost;dbname=dbbagandoeu';
+$mdp='1996B13g';
+/*$dsn='mysql:host=localhost;dbname=dbbagandoeu';
 $name='root';
-$mdp='';
+$mdp='';*/
 
 
 ?>

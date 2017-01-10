@@ -23,29 +23,23 @@ class ModeleAdmin
         return $data='Insertion échouée';
     }
 
-    public function delete_date($date){
+    public function ajouterFlux($lien)
+    {
+        global $dsn,$name,$mdp;
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-			/*regarder ce que retourne execute*/
-			$re=$ng->deleteDate($date);
-		}
+        $ng->insertFlux($lien);
+        if($ng!=null) return $data='Insertion réussi';
+        return $data='Insertion échouée';
+    }
 
-    public function delete_lien($lien){
+    public function delete_lien($lien)
+    {
+        global $dsn,$name,$mdp;
         $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-			/*regarder ce que retourne execute*/
-			$re=$ng->deleteLien($lien);
-		}
+        if($ng->deleteLien($lien)) return $data='Suppression réussi';
+        return $data='Suppression échouée';
+    }
 
-    public function delete_Categorie($cate){
-        $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-			/*regarder ce que retourne execute*/
-			$re=$ng->deleteCategorie($cate);
-		}
-
-    public function delete_titre($titre){
-        $ng= new NewsGateway(new Connexion($dsn,$name,$mdp));
-			/*regarder ce que retourne execute*/
-        $re=$ng->deleteTitre($titre);
-		}
 
     public function connexion($login, $mdpa){
         global $dsn,$name,$mdp;

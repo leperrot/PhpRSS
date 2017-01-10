@@ -98,10 +98,14 @@ class ParserXml{
         if(strcmp($name,'ITEM')==0)
         {
             //$this->n->ToString();
-            /*if(!ParseModel::newsExist(($this->n->getLien()))) {
-                echo("insert");
-                insert($this->n->getLien(), $this->n->getTitre(), $this->n->getDate(), $this->n->getDescription(), $this->n->getCategorie());
-            }*/
+            //if(ParseModel::newsExist(($this->n->getLien()))) {
+                //echo("insert");
+                echo('bla');
+            try {
+                ParseModel::insert_News($this->n->getLien(), $this->n->getTitre(), $this->n->getDate(), $this->n->getDescription(), $this->n->getCategorie());
+            }catch (Exception $e){
+                echo'news existe deja';
+            }
 
 
             $this->item=false;
@@ -123,10 +127,10 @@ class ParserXml{
         }
         if(strcmp($name,'CATEGORY')==0)
         {
-            //echo('fin balise category '.$name.'<br/>'."\n");
+           // echo('fin balise category '.$name.'<br/>'."\n");
             $this->cate =false;
         }
-        if(strcmp($name,'DATE')==0)
+        if(strcmp($name,'DATE')==0 || strcmp($name,'PUBDATE')==0)
         {
             //echo('fin balise date'.$name.'<br/>'."\n");
             $this->date =false;
@@ -156,7 +160,7 @@ class ParserXml{
 				$this->n->setDescription($data);
             }
 			if($this->link){
-                //echo('lien = '.$data.'<br/>'."\n");
+                echo('lien = '.$data.'<br/>'."\n");
 				$this->n->setLien($data);
 			}
 			 
